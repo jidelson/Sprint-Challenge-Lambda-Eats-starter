@@ -1,11 +1,28 @@
 import React from "react";
+import { Route } from 'react-router-dom';
+import axios from 'axios';
+import * as yup from "yup";
+import Form from './Form.js'
+import Pizza from './Pizza.js'
+import HomePage from './HomePage.js'
 
 const App = () => {
+
+
+
+  
   return (
-    <>
-      <h1>Lambda Eats</h1>
-      <p>You can remove this code and create your own header</p>
-    </>
+  <div>
+  <h1>Lambda Eats</h1>
+
+    <div>
+    <Route exact path ='/'>
+      <HomePage />
+    </Route>
+    </div>
+
+  </div>
   );
+  
 };
 export default App;
