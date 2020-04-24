@@ -8,8 +8,33 @@ import HomePage from './HomePage.js'
 
 const App = () => {
 
+const initialFormValues = [{
+  name:'',
+  size: '',
+  pepperoni: '',
+  sausage:'',
+  olives:'',
+  jalapenos:'',
+  specialInstructions: '',
+}]
 
+const initialFormErrors = {
+  name:'',
+  size:'',
+  specialInstructions:''
+}
 
+const formSchema = yup.object().shape({
+  name: yup
+  .string()
+  .min(2, 'Name must have at least 2 characters')
+  .required('Name is required!'),
+  
+  specialInstructions: yup
+  .string()
+  .min(2, 'Instructions must have at least 2 characters')
+  .required('Name is required!')
+})
   
   return (
   <div>
