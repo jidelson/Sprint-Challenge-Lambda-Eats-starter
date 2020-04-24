@@ -1,5 +1,5 @@
 import React from "react";
-import { Route } from 'react-router-dom';
+import { Route, BrowserRouter, Link } from 'react-router-dom';
 
 function GoFromHomeToForm() {
 
@@ -10,8 +10,10 @@ const HomePage = props => (
 <h2>Welcome to Joe's Pizza</h2>
 
 <div className="formButton">
-<Route path='/Form'></Route>
-<button>Choose Your Pizza!</button>
+    <BrowserRouter>
+
+<Link to="/Form">Choose Your Pizza!</Link>
+</BrowserRouter>
 </div>
 
 </div>

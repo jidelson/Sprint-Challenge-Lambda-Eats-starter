@@ -40,33 +40,12 @@ function Form(props){
           <option value='large'>large</option>
         </select></label>
 
-        <label>Pepperoni&nbsp;
+        <label>Toppings&nbsp;
     <input
-    name='pepperoni'
+    name='termsOfService'
     type="checkbox"
-    // checked={false}
+    // checked={true}
     // onChange={onCheckBoxChange}
-    />
-    </label>
-
-    <label> Sausage&nbsp;
-    <input
-    name='sausage'
-    type="checkbox"
-    />
-    </label>
-
-    <label>Olives&nbsp;
-    <input
-    name='olives'
-    type="checkbox"
-    />
-    </label>
-
-    <label>Jalapenos&nbsp;
-    <input
-    name='jalapenos'
-    type="checkbox"
     />
     </label>
 
