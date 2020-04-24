@@ -13,10 +13,10 @@ function Pizza({details}){
 
             <div className='toppings'>
     
-            <p>{details.pepperoni ? 'yes' : 'no'}</p>
-            <p>{details.sausage ? 'yes' : 'no'}</p>
-            <p>{details.olives ? 'yes' : 'no'}</p>
-            <p>{details.jalapenos ? 'yes' : 'no'}</p>
+            <p>Pepperoni?{details.pepperoni ? 'yes' : 'no'}</p>
+            <p>Sausage?{details.sausage ? 'yes' : 'no'}</p>
+            <p>Olives?{details.olives ? 'yes' : 'no'}</p>
+            <p>Jalapenos?{details.jalapenos ? 'yes' : 'no'}</p>
             </div>
       
            { !!details.toppings && !!details.toppings.length &&

@@ -1,29 +1,29 @@
 import React, { useState, useEffect } from "react";
-import { Route, BrowserRouter, Link } from 'react-router-dom';
+import { Route, BrowserRouter, Link, Router } from 'react-router-dom';
 import axios from 'axios';
 import * as yup from "yup";
-import Form from './Form.js'
-import Pizza from './Pizza.js'
-import HomePage from './HomePage.js'
+import Form from './Form.js';
+import Pizza from './Pizza.js';
+
 
 const url= 'https://reqres.in/api/users'
 
-const initialFormValues = [{
+const initialFormValues = {
   name:'',
   size: '',
   specialInstructions: '',
- toppings:[
-  'pepperoni',
-  'sausage',
-  'olives',
-  'jalapenos',
-]
-}]
+ toppings:{
+  pepperoni: false,
+  sausage: false,
+  olives: false,
+  jalapenos: false
+}
+}
 
 const initialFormErrors = {
   name:'',
   size:'',
-  specialInstructions:''
+  specialInstructions:'',
 }
 
 const formSchema = yup.object().shape({
@@ -35,37 +35,29 @@ const formSchema = yup.object().shape({
   specialInstructions: yup
   .string()
   .min(2, 'Instructions must have at least 2 characters')
-  .required('Name is required!')
+  .required('Name is required!'),
+
+  size: yup
+  .string()
+  .matches(/(small|medium|large)/, 'either small medium or large')
+.required ('size is required')
 })
 
 
 
 const App = () => {
 
-  const [customers, setCustomers] = useState([])
+  const [order, setOrder] = useState([])
   const [formValues, setFormValues] = useState(initialFormValues)
 
 const [formErrors, setFormErrors] = useState(initialFormErrors)
   
-const getCustomers = () => {
-  axios.get(url)
-  .then(function(res) {
-    console.log(res);
-    setCustomers([...customers, res.data])
-  })
-  .catch(function(err) {
-    console.log(err)
-  })
-}
 
-useEffect(() =>{
-  getCustomers()
-  }, [])
-
-  const postCustomer = customer => {
-    axios.post(url, customers)
+  const postOrder = pizzaOrder => {
+    axios.post(url, initialFormValues )
     .then(res => {
-      setCustomers([...customers, res.data])
+      console.log(res);
+      setOrder([...order, res.data])
     })
     .catch(err => {
     })
@@ -75,13 +67,15 @@ const onSubmit = evt => {
   evt.preventDefault()
 
 
-    const newCustomer = {
+    const newOrder = {
     name: formValues.name,
     size: formValues.size,
     specialInstructions: formValues.specialInstructions,
+    toppings: Object.keys(formValues.toppings)
+    .filter(topping => formValues.toppings[topping] === true)
     
     }
-    postCustomer(newCustomer)
+    postOrder(newOrder)
     setFormValues(initialFormValues)
   }
   
@@ -111,14 +105,15 @@ setFormValues({
   }
 
   const onCheckBoxChange = evt => {
-    const {toppings} = evt.target.toppings
+    const {name} = evt.target
     const isChecked = evt.target.checked
+  
   
     setFormValues({
       ...formValues,
       toppings: {
   ...formValues.toppings,
-    [true]: isChecked,
+    [name]: isChecked,
       }
     })
   }
@@ -126,25 +121,24 @@ setFormValues({
 
   return (
   <div>
-  <h1>Lambda Eats</h1>
+<h1>Welcome to Joe's Pizza Place!</h1>
 
-    <div>
-      <BrowserRouter>
-    <Route path ='/'>
-      <HomePage />
-    </Route>
-    </BrowserRouter>
-    </div>
+      {
+      order.map(pizzaOrder => {
+        return (
+          <Pizza key={order.id} details={order} />
+        )
 
-    <Form
+      })
+      }
+
+<Form
       values = {formValues}
       onInputChange = {onInputChange}
       onCheckBoxChange = {onCheckBoxChange}
       onSubmit = {onSubmit}
       errors ={formErrors}
       />
-
-
   </div>
   );
   

@@ -8,7 +8,7 @@ function Form(props){
         onSubmit,
         errors
     } = props
-
+    console.log(values.toppings);
     return(
     <form className="formContainer">
 
@@ -18,6 +18,7 @@ function Form(props){
         {errors.specialInstructions}
         </div>
 
+        <div>
         <label htmlFor='name'>Name:&nbsp;
         <input
         id='name'
@@ -26,9 +27,10 @@ function Form(props){
         name='name'
         type='text'
         /></label>
+        </div>
 
-<label htmlFor='size'>Size:&nbsp;
-      <select
+        <label htmlFor='size'>Size:&nbsp;
+        <select
             id= 'size'
           value ={values.size}
           onChange = {onInputChange}
@@ -40,16 +42,50 @@ function Form(props){
           <option value='large'>large</option>
         </select></label>
 
-        <label>Toppings&nbsp;
+    <div>
+    <h4>Toppings</h4>
+        
+
+        <label>Pepperoni&nbsp;
     <input
-    name='toppings'
-    type="checkbox"
-    // checked={true}
-    // onChange={onCheckBoxChange}
+    // checked={}
+    onChange={onCheckBoxChange}
+    name='pepperoni'
+    type='checkbox'
+    
     />
     </label>
 
+    <label>Sausage&nbsp;
+    <input
+    name='sausage'
+    type='checkbox'
+    // checked={values.toppings.sausage}
+    onChange={onCheckBoxChange}
+    />
+    </label>
 
+    <label>Olives&nbsp;
+    <input
+    name='olives'
+    type='checkbox'
+    // checked={values.toppings.olives}
+    onChange={onCheckBoxChange}
+    />
+    </label>
+
+    <label>Jalapenos&nbsp;
+    <input
+    name='jalapenos'
+    type='checkbox'
+    // checked={values.toppings.jalapenos}
+    onChange={onCheckBoxChange}
+    />
+    </label>
+
+    </div>
+
+<div>
     <label>Special Instructions:&nbsp;
                 <input
                 value = {values.specialInstructions}
@@ -58,6 +94,7 @@ function Form(props){
                 type='text'
                 />
             </label>
+            </div>
 <div>
     <button onClick={onSubmit}>Add To Order!</button>
 </div>
