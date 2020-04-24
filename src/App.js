@@ -11,12 +11,12 @@ const url= 'https://reqres.in/api/users'
 const initialFormValues = [{
   name:'',
   size: '',
+  specialInstructions: '',
  toppings:[
   'pepperoni',
   'sausage',
   'olives',
   'jalapenos',
-  'specialInstructions'
 ]
 }]
 
@@ -68,7 +68,59 @@ useEffect(() =>{
       setCustomers([...customers, res.data])
     })
     .catch(err => {
-    }, [customers.id])
+    })
+  }
+
+const onSubmit = evt => {
+  evt.preventDefault()
+
+
+    const newCustomer = {
+    name: formValues.name,
+    size: formValues.size,
+    specialInstructions: formValues.specialInstructions,
+    
+    }
+    postCustomer(newCustomer)
+    setFormValues(initialFormValues)
+  }
+  
+  const onInputChange = evt => {
+    const name = evt.target.name
+    const value = evt.target.value
+  
+  yup
+  .reach(formSchema, name)
+  .validate(value)
+  .then(valid => {
+    setFormErrors({
+      ...formErrors,
+      [name]: '',
+    })
+  })
+.catch(err => {
+  setFormErrors({
+    ...formErrors,
+    [name]: err.errors[0],
+  })
+})
+setFormValues({
+  ...formValues,
+  [name]:value,
+})
+  }
+
+  const onCheckBoxChange = evt => {
+    const {toppings} = evt.target.toppings
+    const isChecked = evt.target.checked
+  
+    setFormValues({
+      ...formValues,
+      toppings: {
+  ...formValues.toppings,
+    [true]: isChecked,
+      }
+    })
   }
 
 
@@ -83,6 +135,15 @@ useEffect(() =>{
     </Route>
     </BrowserRouter>
     </div>
+
+    <Form
+      values = {formValues}
+      onInputChange = {onInputChange}
+      onCheckBoxChange = {onCheckBoxChange}
+      onSubmit = {onSubmit}
+      errors ={formErrors}
+      />
+
 
   </div>
   );

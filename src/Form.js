@@ -42,7 +42,7 @@ function Form(props){
 
         <label>Toppings&nbsp;
     <input
-    name='termsOfService'
+    name='toppings'
     type="checkbox"
     // checked={true}
     // onChange={onCheckBoxChange}
